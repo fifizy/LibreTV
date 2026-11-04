@@ -1,0 +1,15 @@
+{
+  "name": "libretv-next",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-11-04",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "vars": {
+    "DEFAULT_SUBSCRIPTIONS": "[\"https://gist.githubusercontent.com/abei45/28fd73932bbe406846e2955d931378b2/raw/8a79191f541d4e4ff416684ef52f5decab2c24e0/source1.json\"]"
+  }
+}

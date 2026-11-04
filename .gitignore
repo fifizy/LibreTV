@@ -12,3 +12,6 @@ vitest-results.json
 .zcode/
 .codebuddy/
 generated-images/
+.open-next/
+.wrangler/
+.dev.vars
