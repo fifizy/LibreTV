@@ -128,6 +128,20 @@ export const api = {
     filterAdult: boolean,
     opts?: { signal?: AbortSignal; onSource?: (outcome: SourceSearchOutcome) => void }
   ): Promise<SearchResponse> => {
+    // Keep each Worker invocation below its outbound subrequest budget.
+    if (sources.length > 5) {
+      const batches: SourceConfig[][] = [];
+      for (let i = 0; i < sources.length; i += 5) batches.push(sources.slice(i, i + 5));
+      const results: SearchResponse[] = [];
+      let cursor = 0;
+      await Promise.all(Array.from({ length: Math.min(2, batches.length) }, async () => {
+        while (cursor < batches.length) {
+          const batch = batches[cursor++];
+          results.push(await api.search(wd, batch, filterAdult, opts));
+        }
+      }));
+      return { list: results.flatMap((r) => r.list), failures: results.flatMap((r) => r.failures) };
+    }
     const signal = opts?.signal;
     const onSource = opts?.onSource;
     if (!onSource) {
