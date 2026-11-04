@@ -19,5 +19,6 @@
       "pattern": "tv.cuecuecue.com.cn/*",
       "zone_name": "cuecuecue.com.cn"
     }
-  ]
+  ],
+  "workers_dev": true
 }
